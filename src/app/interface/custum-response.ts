@@ -7,5 +7,5 @@ export interface CustomResponse {
     reason: string;
     message: string;
     developerMessage: string;
-    data: {servers?: Player[], server?: Player}
+    data: {players?: Player[], player?: Player}
 }
