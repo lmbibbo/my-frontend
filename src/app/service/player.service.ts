@@ -5,6 +5,8 @@ import { catchError, tap } from 'rxjs/operators'
 import { CustomResponse } from '../interface/custum-response';
 import { Player } from '../interface/player';
 import { IdentityCardType } from '../enum/identity-card-type.enun'
+//import { URLSearchParams } from '@angular/common/http'
+
 
 @Injectable({ providedIn: 'root' })
 export class PlayerService {
@@ -25,6 +27,38 @@ export class PlayerService {
       catchError(this.handleError)
     )
 
+  login() {
+    var url = "htt://localhost:8080/api/auth/login";
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      console.log(xhr.status);
+      console.log(xhr.responseText);
+    }};
+
+    var data = '{"username":"linda", "password":"password"}';
+
+    xhr.send(data);
+    return xhr.response;
+    
+   /* 
+    let body = new URLSearchParams();
+    body.set('username', 'linda');
+    body.set('password', 'password');
+    console.log(body);
+    
+    return this.http.post<CustomResponse>('http://localhost:8080/api/auth/login', body)
+     .pipe(
+       tap(console.log),
+        catchError(this.handleError)
+    )*/
+  }
+  
   save$ = (player: Player) => <Observable<CustomResponse>>
   this.http.post<CustomResponse>(`${this.apiUrl}/save`, player, this.httpOptions)
     .pipe(

@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.appState$ = this.playerService.players$
+    this.appState$ = this.playerService.login()
       .pipe(
         map(response => {
           return { dataState: DataState.LOADED_STATE, appData: response }
